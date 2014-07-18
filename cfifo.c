@@ -32,6 +32,11 @@ void cfifo_init(struct cfifo *cfifo, size_t sz, size_t cap)
 	cfifo->ptr = malloc(sz * cap);
 }
 
+void cfifo_free(struct cfifo *cfifo)
+{
+	free(cfifo->ptr);
+}
+
 int cfifo_isfull(struct cfifo *cfifo)
 {
 	return cfifo->len == cfifo->cap;

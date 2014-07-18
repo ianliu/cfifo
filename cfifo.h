@@ -50,6 +50,7 @@
  *     cfifo_pop(&f, &el), printf("%d\n", el); // 4
  *     cfifo_pop(&f, &el), printf("%d\n", el); // 5
  *     cfifo_pop(&f, &el), printf("%d\n", el); // 6
+ *     cfifo_free(&f);
  *
  *     return 0;
  * }
@@ -73,6 +74,9 @@ struct cfifo {
 
 /* Initialize cfifo with capacity 'cap' and element size 'sz' */
 void cfifo_init(struct cfifo *cfifo, size_t sz, size_t cap);
+
+/* Frees internal pointer */
+void cfifo_free(struct cfifo *cfifo);
 
 /* Return 1 if fifo is full, 0 otherwise */
 int cfifo_isfull(struct cfifo *cfifo);

@@ -51,6 +51,7 @@ int main()
 	cfifo_pop(&f, &el), assert(el == 6);
 	assert(cfifo_isempty(&f));
 	assert(!cfifo_isfull(&f));
+	cfifo_free(&f);
 
 	return 0;
 }
