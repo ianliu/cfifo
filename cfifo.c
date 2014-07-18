@@ -44,16 +44,15 @@ int cfifo_isempty(struct cfifo *cfifo)
 
 void cfifo_push(struct cfifo *cfifo, void *el)
 {
-	int ret;
 	void *pos;
 	if (cfifo->len == cfifo->cap) {
-		pos = cfifo->ptr + cfifo->h * cfifo->sz;
+		pos = (char*)cfifo->ptr + cfifo->h * cfifo->sz;
 		cfifo->h++;
 		if (cfifo->h == cfifo->cap)
 			cfifo->h = 0;
 	} else {
 		size_t offset = (cfifo->h + cfifo->len) % cfifo->cap;
-		pos = cfifo->ptr + offset * cfifo->sz;
+		pos = (char*)cfifo->ptr + offset * cfifo->sz;
 		cfifo->len++;
 	}
 
@@ -62,10 +61,11 @@ void cfifo_push(struct cfifo *cfifo, void *el)
 
 int cfifo_pop(struct cfifo *cfifo, void *el)
 {
+	size_t offset;
 	if (cfifo->len == 0)
 		return 0;
-	size_t offset = cfifo->h * cfifo->sz;
-	memcpy(el, cfifo->ptr + offset, cfifo->sz);
+	offset = cfifo->h * cfifo->sz;
+	memcpy(el, (char*)cfifo->ptr + offset, cfifo->sz);
 	cfifo->h++;
 	if (cfifo->h == cfifo->cap)
 		cfifo->h = 0;

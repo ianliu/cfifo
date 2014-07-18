@@ -3,6 +3,7 @@
 
 int main()
 {
+	int el, t;
 	struct cfifo f;
 	cfifo_init(&f, sizeof(int), 5);
 
@@ -16,7 +17,6 @@ int main()
 	assert(!cfifo_isfull(&f));
 
 	/* After one push */
-	int el, t;
 	el = 1, cfifo_push(&f, &el);
 	assert(f.len == 1);
 	assert(!cfifo_isempty(&f));
